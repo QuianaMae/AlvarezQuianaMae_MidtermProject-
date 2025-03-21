@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete Task</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Optional Bootstrap for styling -->
+    <style>
+        body {
+            background-color: #fdfff0; 
+        }
+        .container {
+            margin-top: 50px;
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(221, 159, 159, 0.719); 
+            background: linear-gradient(#fdeeec, #fad9f7); 
+            text-align: center; 
+        }
+        h1 {
+            color: #ff7c89;
+            font-family: 'Comic Sans MS', cursive, sans-serif; 
+        }
+        p {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .btn-danger {
+            background-color: #ff7c89; 
+            border: none;
+            font-size: 1.1em;
+        }
+        .btn-danger:hover {
+            background-color: #fa364a; 
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            font-size: 1.1em;
+        }
+        .btn-secondary:hover {
+            background-color: #32373a;
+        }
+        .icon {
+            font-size: 50px; 
+            color: #ff61c2a8; 
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Confirm Delete Task</h1>
+        <p>Are you sure you want to delete the task "<strong>{{ task.title }}</strong>"?</p>
+        <form action="{% url 'task_delete' task.id %}" method="POST">  <!-- Action URL for deletion -->
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>  <!-- Delete button -->
+            <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>  <!-- Link to cancel deletion -->
+        </form>
+    </div>
+</body>
+</html>

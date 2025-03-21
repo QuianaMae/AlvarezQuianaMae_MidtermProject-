@@ -1,0 +1,109 @@
+<!-- tasks/templates/tasks/task_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Create/Edit Task</title>
+    <style>
+        body {
+            background-color: #fdfff0; 
+            
+        }
+        .container {
+            margin-top: 50px; 
+            padding: 30px; 
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(221, 159, 159, 0.719); 
+            background: linear-gradient(#fdeeec, #fad9f7); 
+            text-align: center;
+        }
+        h1 {
+            color: #ff61c2a8; 
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        p {
+            font-size: 1.2em; 
+            color: #333;
+        }
+        .btn-primary {
+            background-color: #ff61c2a8;
+            border: none;
+            font-size: 1.1em;
+        }
+        .btn-primary:hover {
+            background-color: #ee2bb3; 
+        }
+        .btn-warning {
+            background-color: #ffe760;
+            border: none;
+            font-size: 1.1em;
+        }
+        .btn-warning:hover {
+            background-color: #f3c12a;
+        }
+        .btn-danger {
+            background-color: #ee707d;
+            border: none;
+            font-size: 1.1em;
+        }
+        .btn-danger:hover {
+            background-color: #fa364a;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .icon {
+            font-size: 50px; 
+            color: #ff7c89;
+            margin-bottom: 20px; 
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+        <h1>Task List</h1>
+        <form method="GET" action="{% url 'task_list' %}" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search by title" value="{{ query }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Create New Task</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.due_date }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>
+                        <a href="{% url 'task_update' task.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'task_delete' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No tasks available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
